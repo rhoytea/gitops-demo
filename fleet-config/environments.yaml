@@ -1,0 +1,28 @@
+apiVersion: fleet.cattle.io/v1alpha1
+kind: Bundle
+metadata:
+  name: demo-multi-env
+spec:
+  resources:
+  - name: app-manifests
+    content: |
+      {{ .Files.Get "../app/deployment.yaml" }}
+  targets:
+  - name: dev
+    clusterSelector:
+      matchLabels:
+        env: dev
+    helm:
+      values:
+        replicas: 1
+        image: "nginx:1.21"
+        namespace: dev
+  - name: prod
+    clusterSelector:
+      matchLabels:
+        env: prod
+    helm:
+      values:
+        replicas: 3
+        image: "nginx:1.22"
+        namespace: production
