@@ -8,7 +8,7 @@ spec:
   template:
     spec:
       containers:
-      - name: app
+      - name: demo-app
         image: nginx:1.22  # était 1.21
         env:
         - name: VERSION
