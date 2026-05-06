@@ -4,15 +4,23 @@ metadata:
   name: demo-app
   namespace: default
 spec:
-  replicas: 3  # était 2
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo-app
   template:
+    metadata:
+      labels:
+        app: demo-app
     spec:
       containers:
-      - name: demo-app
+      - name: app
         image: nginx:1.22  # était 1.21
         env:
         - name: VERSION
           value: "v2.0"
+        ports:
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
